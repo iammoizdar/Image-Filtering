@@ -1,0 +1,171 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css" />
+    <title>Chrome Extension</title>
+</head>
+
+
+
+<style>
+    body {
+        background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: "Roboto", sans-serif;
+        width: 350px;
+        height: 600px;
+    }
+
+    html::-webkit-scrollbar {
+        display: none;
+    }
+
+    #drop-zone {
+        max-width: 450px;
+        height: 380px;
+        border: 2px dotted rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        display: none;
+    }
+
+    h1 {
+        color: #fff;
+        font-size: 30px;
+    }
+
+    fieldset {
+        border: medium none !important;
+        margin: 0 0 10px;
+        min-width: 100%;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        gap: 12px;
+    }
+
+
+    .heading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .selectNum {
+        width: 200px;
+    }
+
+    .btn {
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-color: transparent;
+        border: 2px solid #e74c3c;
+        border-radius: 0.6em;
+        color: #e74c3c;
+        cursor: pointer;
+        display: flex;
+        align-self: center;
+        font-size: 0.8rem;
+        font-weight: 400;
+        line-height: 1;
+        padding: 0.6em 0.3em;
+        text-decoration: none;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+    }
+
+    .btn:hover,
+    .btn:focus {
+        color: #fff;
+        outline: 0;
+    }
+
+    .third {
+        border-color: #3498db;
+        color: #fff;
+        box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+        transition: all 150ms ease-in-out;
+    }
+
+    .third:hover {
+        box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+    }
+
+    .btn-wrap {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 30px;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+
+
+        <div class="heading">
+            <h1>Quickfill</h1>
+            <fieldset>
+                <!-- Filters = [BLUR, EMBOSS, CONTOUR, DETAIL, EDGE_ENHANCE, EDGE_ENHANCE_MORE, FIND_EDGE, SHARPEN, BRIGHTER, DARKER, SMOOTH,
+SMOOTH_MORE, G_BLUR] -->
+                <select id="selectNumber" class="selectNum">
+                    <option value="1">Types</option>
+                    <option value="BLUR">Blur</option>
+                    <option value="EMBOSS">Emboss</option>
+                    <option value="CONTOUR">Contour</option>
+                    <option value="DETAILS">Detail</option>
+                    <option value="EDGE_ENHANCE">Edge Enhance</option>
+                    <option value="EDGE_ENHANCE_MORE">Edge Enhance Max</option>
+                    <option value="FIND_EDGE">Edge Extraction</option>
+                    <option value="SHARPEN">Sharp</option>
+                    <option value="BRIGHTER">Brighter</option>
+                    <option value="DARKER">Dark</option>
+                    <option value="SMOOTH">Smooth</option>
+                    <option value="SMOOTH_MORE">Smoothen</option>
+                    <option value="G_BLUR">Smooth Blur</option>
+                </select>
+
+                <button id="compress" class="btn third">Compression</button>
+            </fieldset>
+        </div>
+        <div id="drop-zone">
+            <img id="imageid" src="" alt="">
+            <p>Drop file or click to upload</p>
+            <input type="file" id="myfile" hidden>
+        </div>
+
+        <div class="btn-wrap">
+            <button class="btn third">Share</button>
+            <button class="btn third">Download</button>
+        </div>
+
+    </div>
+    <script src="content.js"></script>
+
+    </script>
+
+</body>
+
+
+</html>
