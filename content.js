@@ -1,8 +1,12 @@
 const dropZone = document.querySelector('#drop-zone');
 const inputElement = document.querySelector('input');
 const img = document.querySelector('img');
-const compressImg = document.querySelector('#compress')
+const downloadImg = document.querySelector('#download')
+
 let p = document.querySelector('p')
+
+
+
 
 inputElement.addEventListener('change', function (e) {
     const clickFile = this.files[0];
@@ -22,7 +26,7 @@ inputElement.addEventListener('change', function (e) {
 
     let formdata = new FormData();
     formdata.append("files[]", inputElement.files[0]);
-    formdata.append("fil", "CONTOUR");
+    formdata.append("fil", "DARKER");
     formdata.append("compress", "true");
     formdata.append("quality", "10");
 
@@ -33,10 +37,20 @@ inputElement.addEventListener('change', function (e) {
     };
 
     fetch("https://image-filtering-api-flask.herokuapp.com/upload", requestOptions)
-        .then(response => response.text())
-        .then(imgresult => console.log(imgresult))
-        .catch(error => console.log('error', error));
+  .then(response => response.blob())
+  .then(imageBlob => {
+      const imageObjectURL = URL.createObjectURL(imageBlob);
+      console.log(imageObjectURL);
+      img.src = imageObjectURL;
+      const link = document.createElement('a');
+      link.href = imageObjectURL;
+      link.setAttribute('download', 'image.jpg');
+      document.body.appendChild(link);
+      downloadImg.addEventListener('click', () => link.click());
+
+  })
 })
+
 
 dropZone.addEventListener('click', () => inputElement.click());
 dropZone.addEventListener('dragover', (e) => {
