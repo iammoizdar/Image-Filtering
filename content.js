@@ -54,18 +54,19 @@ function applyChanges() {
     let formdata = new FormData();
     formdata.append("files[]", inputElement.files[0]);
     formdata.append("fil", element);
-    formdata.append("compress", "true");
-    formdata.append("quality", "0");
 
     let requestOptions = {
         method: 'POST',
         body: formdata,
         redirect: 'follow'
     };
+    displayLoading()
+
 
     fetch("https://image-filtering-api-flask.herokuapp.com/upload", requestOptions)
         .then(response => response.blob())
         .then(imageBlob => {
+            hideLoading()
             const imageObjectURL = URL.createObjectURL(imageBlob);
             console.log(imageObjectURL);
             img.src = imageObjectURL;
@@ -76,8 +77,35 @@ function applyChanges() {
             downloadImg.addEventListener('click', () => link.click());
 
         })
+
 }
 
 
 
 compressimg.addEventListener('click', applyChanges)
+
+
+
+
+
+
+
+
+// FOR ANIMATION
+
+const loader = document.querySelector("#loading");
+
+// showing loading
+function displayLoading() {
+    loader.classList.add("display");
+    // to stop loading after some time
+    setTimeout(() => {
+        loader.classList.remove("display");
+    }, 10000);
+}
+
+
+// hiding loading 
+function hideLoading() {
+    loader.classList.remove("display");
+}

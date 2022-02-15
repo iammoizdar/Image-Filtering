@@ -24,7 +24,7 @@
 
     #drop-zone {
         max-width: 450px;
-        height: 380px;
+        height: 338px;
         border: 2px dotted rgb(255, 255, 255);
         display: flex;
         justify-content: center;
@@ -81,7 +81,7 @@
         font-size: 0.8rem;
         font-weight: 400;
         line-height: 1;
-        padding: 0.6em 0.3em;
+        padding: 0.6em 2.3em;
         text-decoration: none;
         text-align: center;
         text-transform: uppercase;
@@ -118,6 +118,35 @@
         flex-direction: column;
         grid-gap: 30px;
     }
+
+    #loading {
+        width: 2rem;
+        height: 2rem;
+        border: 5px solid #f3f3f3;
+        border-top: 6px solid #000000;
+        border-radius: 100%;
+        margin: auto;
+        visibility: hidden;
+        animation: spin 1s infinite linear;
+        position: absolute;
+        top: 50%;
+        left: 44%;
+        transform: translate(-50%, -50%);
+    }
+
+    #loading.display {
+        visibility: visible;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
 <body>
@@ -146,9 +175,10 @@ SMOOTH_MORE, G_BLUR] -->
                     <option value="G_BLUR">Smooth Blur</option>
                 </select>
 
-                <button id="compress" class="btn third">Compression</button>
+                <button id="compress" class="btn third">Apply</button>
             </fieldset>
         </div>
+        <div id="loading"></div>
         <div id="drop-zone">
             <img id="imageid" src="" alt="">
             <p>Drop file or click to upload</p>
