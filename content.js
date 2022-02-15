@@ -2,7 +2,7 @@ const dropZone = document.querySelector('#drop-zone');
 const inputElement = document.querySelector('input');
 const img = document.querySelector('img');
 const downloadImg = document.querySelector('#download')
-
+const compressimg = document.querySelector('#compress')
 let p = document.querySelector('p')
 
 
@@ -23,32 +23,6 @@ inputElement.addEventListener('change', function (e) {
         }
     }
 
-
-    let formdata = new FormData();
-    formdata.append("files[]", inputElement.files[0]);
-    formdata.append("fil", "DARKER");
-    formdata.append("compress", "true");
-    formdata.append("quality", "10");
-
-    let requestOptions = {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
-    };
-
-    fetch("https://image-filtering-api-flask.herokuapp.com/upload", requestOptions)
-  .then(response => response.blob())
-  .then(imageBlob => {
-      const imageObjectURL = URL.createObjectURL(imageBlob);
-      console.log(imageObjectURL);
-      img.src = imageObjectURL;
-      const link = document.createElement('a');
-      link.href = imageObjectURL;
-      link.setAttribute('download', 'image.jpg');
-      document.body.appendChild(link);
-      downloadImg.addEventListener('click', () => link.click());
-
-  })
 })
 
 
@@ -72,3 +46,38 @@ dropZone.addEventListener('drop', (e) => {
     }
 
 });
+
+function applyChanges() {
+    const element = document.getElementById('selectNumber').value;
+    console.log(element)
+
+    let formdata = new FormData();
+    formdata.append("files[]", inputElement.files[0]);
+    formdata.append("fil", element);
+    formdata.append("compress", "true");
+    formdata.append("quality", "0");
+
+    let requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://image-filtering-api-flask.herokuapp.com/upload", requestOptions)
+        .then(response => response.blob())
+        .then(imageBlob => {
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            console.log(imageObjectURL);
+            img.src = imageObjectURL;
+            const link = document.createElement('a');
+            link.href = imageObjectURL;
+            link.setAttribute('download', 'image.jpg');
+            document.body.appendChild(link);
+            downloadImg.addEventListener('click', () => link.click());
+
+        })
+}
+
+
+
+compressimg.addEventListener('click', applyChanges)
